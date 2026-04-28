@@ -18,13 +18,17 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: { preset: Aura }
     }),
-    provideKeycloak({
-      config: {
-        url: environment.keycloak.url,
-        realm: environment.keycloak.realm,
-        clientId: environment.keycloak.clientId
-      }
-    }),
+    ...(environment.keycloak.enabled
+      ? [
+          provideKeycloak({
+            config: {
+              url: environment.keycloak.url,
+              realm: environment.keycloak.realm,
+              clientId: environment.keycloak.clientId
+            }
+          })
+        ]
+      : []),
     provideAppInitializer(() => {
       const authService = inject(AuthService);
       return authService.initialize();
