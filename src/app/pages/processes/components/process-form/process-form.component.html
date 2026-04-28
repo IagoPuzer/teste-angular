@@ -1,0 +1,10 @@
+<form [formGroup]="form" class="grid gap-3" (ngSubmit)="submit()">
+  <input pInputText formControlName="processNumber" placeholder="Numero do processo" />
+  <input pInputText formControlName="client" placeholder="Cliente" />
+  <textarea pTextarea formControlName="description" rows="3" placeholder="Descricao"></textarea>
+  <p-select formControlName="status" [options]="statusOptions" optionLabel="label" optionValue="value" placeholder="Status" />
+  <input pInputText type="date" formControlName="createdAt" />
+  <div class="flex justify-end">
+    <p-button type="submit" label="Salvar" />
+  </div>
+</form>

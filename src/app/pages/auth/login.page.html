@@ -1,0 +1,12 @@
+<div class="flex min-h-[80vh] items-center justify-center px-4">
+  <p-card header="Acesso ao sistema" subheader="Autenticacao Keycloak">
+    <p class="mb-4 text-sm text-slate-600">Entre para acessar dashboard e gestao de processos.</p>
+    @if (loading()) {
+      <div class="flex justify-center">
+        <p-progressSpinner strokeWidth="4" />
+      </div>
+    } @else {
+      <p-button label="Entrar" icon="pi pi-sign-in" (onClick)="login()" />
+    }
+  </p-card>
+</div>

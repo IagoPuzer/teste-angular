@@ -1,0 +1,43 @@
+<p-toast />
+<p-confirmDialog />
+
+<p-card header="Gestao de Processos Juridicos">
+  <div class="mb-4 flex flex-wrap gap-3">
+    <input
+      pInputText
+      placeholder="Filtrar por cliente"
+      [(ngModel)]="filters.client"
+      (keyup.enter)="applyFilters()"
+      class="w-full md:w-72"
+    />
+    <p-select
+      [options]="statusOptions"
+      optionLabel="label"
+      optionValue="value"
+      [ngModel]="filters.status"
+      (ngModelChange)="setStatus($event)"
+      placeholder="Status"
+      class="w-full md:w-52"
+    />
+    <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" />
+  </div>
+
+  <div class="mb-3 flex gap-2">
+    <p-button size="small" severity="secondary" label="Ordenar por cliente" (onClick)="updateSort('client')" />
+    <p-button size="small" severity="secondary" label="Ordenar por data" (onClick)="updateSort('createdAt')" />
+  </div>
+
+  <app-process-list
+    [processes]="items()"
+    [total]="total()"
+    [rows]="rows()"
+    [first]="first()"
+    (pageChange)="onPageChange($event)"
+    (edit)="openEdit($event)"
+    (remove)="remove($event)"
+  />
+</p-card>
+
+<p-dialog [modal]="true" [draggable]="false" [resizable]="false" [visible]="showForm()" (visibleChange)="showForm.set($event)" [header]="editing() ? 'Editar processo' : 'Novo processo'" [style]="{ width: '36rem' }">
+  <app-process-form [process]="editing()" (save)="save($event)" />
+</p-dialog>

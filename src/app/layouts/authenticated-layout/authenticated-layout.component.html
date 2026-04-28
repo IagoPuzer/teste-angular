@@ -1,0 +1,18 @@
+<div class="min-h-screen bg-slate-50">
+  @if (loadingService.activeRequests() > 0) {
+    <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" />
+  }
+  <header class="border-b border-slate-200 bg-white">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
+      <h1 class="text-lg font-semibold text-slate-900">Gestao de Processos Juridicos</h1>
+      <div class="flex items-center gap-2">
+        <a routerLink="/dashboard" routerLinkActive="font-semibold" class="text-sm text-slate-700">Dashboard</a>
+        <a routerLink="/processes" routerLinkActive="font-semibold" class="text-sm text-slate-700">Processos</a>
+        <p-button label="Sair" size="small" severity="secondary" (onClick)="logout()" />
+      </div>
+    </div>
+  </header>
+  <main class="mx-auto max-w-7xl p-4">
+    <router-outlet />
+  </main>
+</div>
