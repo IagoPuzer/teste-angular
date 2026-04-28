@@ -6,7 +6,7 @@
   [totalRecords]="total"
   [rowsPerPageOptions]="[5, 10, 20]"
   [lazy]="true"
-  (onPage)="pageChange.emit({ page: $event.page ?? 0, rows: $event.rows ?? 5 })"
+  (onPage)="pageChange.emit({ page: ($event.first / $event.rows), rows: $event.rows })"
 >
   <ng-template pTemplate="header">
     <tr>
