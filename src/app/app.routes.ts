@@ -4,7 +4,7 @@ import { AuthenticatedLayoutComponent } from './layouts/authenticated-layout/aut
 
 export const routes: Routes = [
   {
-    path: 'auth',
+    path: 'login',
     loadChildren: () => import('./pages/auth/auth.routes').then((m) => m.AUTH_ROUTES)
   },
   {
