@@ -52,13 +52,24 @@ Campos esperados:
 
 ```ts
 keycloak: {
+  enabled: true,
   url: 'http://localhost:8080',
   realm: 'juridico',
   clientId: 'angular-spa'
 }
 ```
 
-Observacao: caso o servidor Keycloak nao esteja disponivel, o projeto usa fallback local para nao bloquear o fluxo de desenvolvimento.
+Se `enabled` estiver `false`, o projeto usa modo mock local para login.
+
+## Rodar Keycloak local (Docker)
+
+Para a autenticacao via Keycloak funcionar corretamente, o Docker precisa estar em execucao e os containers do Keycloak precisam estar ativos.
+
+No diretorio `frontend`:
+
+```bash
+docker compose -f docker-compose.keycloak.yml up -d
+```
 
 ## Estrutura principal
 
