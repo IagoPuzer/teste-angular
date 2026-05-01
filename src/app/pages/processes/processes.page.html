@@ -1,21 +1,21 @@
 <p-toast />
 <p-confirmDialog />
 
-<section class="space-y-4 sm:space-y-6">
+<section class="space-y-6 sm:space-y-8">
   <div class="space-y-1">
-    <h1 class="text-xl font-semibold text-slate-900 sm:text-2xl">Gestao de processos juridicos</h1>
+    <h1 class="text-xl font-semibold text-slate-900 sm:text-2xl">Processos</h1>
     <p class="text-sm text-slate-700">Filtre, ordene e gerencie os processos em um unico painel.</p>
   </div>
 
-  <p-card styleClass="!rounded-xl !border !border-slate-200 !bg-white">
+  <p-card styleClass="!rounded-xl !border !border-slate-200 !bg-white my-4">
     <ng-template pTemplate="header">
       <div class="px-4 pt-4 sm:px-6 sm:pt-6">
         <p class="text-base font-semibold text-slate-900">Filtros e acoes</p>
       </div>
     </ng-template>
 
-    <div class="space-y-4 rounded-lg border border-slate-100 bg-slate-50/70 p-3 sm:p-4">
-      <div class="flex flex-wrap gap-3">
+    <div class="rounded-lg border border-slate-100 bg-slate-50/70 p-3 sm:p-4">
+      <div class="flex flex-wrap items-center gap-3 sm:gap-4">
         <input
           pInputText
           placeholder="Filtrar por cliente"
@@ -31,14 +31,19 @@
           (ngModelChange)="setStatus($event)"
           placeholder="Todos os status"
           class="w-full md:w-56"
-          styleClass="!border-slate-300 !bg-white !text-slate-900"
+          styleClass="!border-slate-300 !bg-white !text-slate-900
+            [&_.p-select-label]:!text-slate-700
+            [&_.p-select-label]:!opacity-100
+            [&_.p-placeholder]:!text-slate-400
+            [&_.p-select-dropdown-icon]:!text-slate-500"
+          panelStyleClass="!bg-white !border !border-slate-300
+            [&_.p-select-list-container]:!bg-white
+            [&_.p-select-option]:!text-slate-700
+            [&_.p-select-option:hover]:!bg-slate-100
+            [&_.p-select-option.p-select-option-selected]:!bg-emerald-100
+            [&_.p-select-option.p-select-option-selected]:!text-emerald-800"
         />
         <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" styleClass="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600" />
-      </div>
-
-      <div class="flex gap-2">
-        <p-button size="small" severity="secondary" [outlined]="true" label="Ordenar por cliente" icon="pi pi-sort-alpha-down" (onClick)="updateSort('client')" />
-        <p-button size="small" severity="secondary" [outlined]="true" label="Ordenar por data" icon="pi pi-calendar" (onClick)="updateSort('createdAt')" />
       </div>
     </div>
   </p-card>
