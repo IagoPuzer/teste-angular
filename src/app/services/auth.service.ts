@@ -1,11 +1,11 @@
 import { Injectable, signal } from '@angular/core';
 import { Observable, from, map, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import Keycloak from 'keycloak-js';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+  private readonly mockMode = !environment.keycloak.enabled;
   private readonly authenticated = signal<boolean>(localStorage.getItem('mock_auth') === 'true');
   private readonly keycloak = environment.keycloak.enabled
     ? new Keycloak({
@@ -21,7 +21,7 @@ export class AuthService {
       return Promise.resolve();
     }
     this.initialized = true;
-    if (!this.keycloak) {
+    if (this.mockMode || !this.keycloak) {
       this.authenticated.set(localStorage.getItem('mock_auth') === 'true');
       return Promise.resolve();
     }
@@ -35,8 +35,7 @@ export class AuthService {
         this.authenticated.set(authenticated);
       })
       .catch(() => {
-        // fallback local para dev sem servidor Keycloak
-        this.authenticated.set(localStorage.getItem('mock_auth') === 'true');
+        this.authenticated.set(false);
       });
   }
 
@@ -45,7 +44,7 @@ export class AuthService {
   }
 
   login(): Observable<void> {
-    if (!this.keycloak) {
+    if (this.mockMode || !this.keycloak) {
       this.authenticated.set(true);
       localStorage.setItem('mock_auth', 'true');
       return of(void 0);
@@ -53,12 +52,6 @@ export class AuthService {
     return from(this.keycloak.login()).pipe(
       map(() => {
         this.authenticated.set(true);
-        localStorage.setItem('mock_auth', 'true');
-      }),
-      catchError(() => {
-        this.authenticated.set(true);
-        localStorage.setItem('mock_auth', 'true');
-        return of(void 0);
       })
     );
   }
@@ -66,7 +59,7 @@ export class AuthService {
   logout(): Promise<void> {
     this.authenticated.set(false);
     localStorage.removeItem('mock_auth');
-    if (!this.keycloak) {
+    if (this.mockMode || !this.keycloak) {
       return Promise.resolve();
     }
     return this.keycloak.logout().catch(() => Promise.resolve());
