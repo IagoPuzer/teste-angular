@@ -5,13 +5,13 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { LegalProcess, ProcessFilters, ProcessStatus } from '../../models/process.model';
 import { ProcessService } from '../../services/process.service';
 import { ProcessFormComponent } from './components/process-form/process-form.component';
 import { ProcessListComponent } from './components/process-list/process-list.component';
+import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-processes-page',
@@ -23,18 +23,17 @@ import { ProcessListComponent } from './components/process-list/process-list.com
     InputTextModule,
     SelectModule,
     ToastModule,
-    ConfirmDialogModule,
     ButtonModule,
     ProcessFormComponent,
-    ProcessListComponent
+    ProcessListComponent,
+    DeleteConfirmDialogComponent
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [MessageService],
   templateUrl: './processes.page.html'
 })
 export class ProcessesPage implements OnInit {
   private readonly processService = inject(ProcessService);
   private readonly messageService = inject(MessageService);
-  private readonly confirmationService = inject(ConfirmationService);
 
   readonly statusOptions = [
     { label: 'Todos', value: '' },
@@ -50,6 +49,8 @@ export class ProcessesPage implements OnInit {
   readonly page = signal(1);
   readonly showForm = signal(false);
   readonly editing = signal<LegalProcess | undefined>(undefined);
+  readonly showDeleteConfirm = signal(false);
+  readonly deleting = signal<LegalProcess | undefined>(undefined);
 
   readonly filters: ProcessFilters = {
     client: '',
@@ -115,15 +116,27 @@ export class ProcessesPage implements OnInit {
   }
 
   remove(process: LegalProcess): void {
-    this.confirmationService.confirm({
-      message: `Deseja excluir o processo ${process.processNumber}?`,
-      header: 'Confirmar exclusao',
-      accept: () => {
-        this.processService.remove(process.id).subscribe(() => {
-          this.messageService.add({ severity: 'success', summary: 'Excluido', detail: 'Processo removido.' });
-          this.load();
-        });
-      }
+    this.deleting.set(process);
+    this.showDeleteConfirm.set(true);
+  }
+
+  onDeleteDialogVisibilityChange(visible: boolean): void {
+    this.showDeleteConfirm.set(visible);
+    if (!visible) {
+      this.deleting.set(undefined);
+    }
+  }
+
+  confirmDelete(): void {
+    const process = this.deleting();
+    if (!process) {
+      return;
+    }
+    this.processService.remove(process.id).subscribe(() => {
+      this.showDeleteConfirm.set(false);
+      this.deleting.set(undefined);
+      this.messageService.add({ severity: 'success', summary: 'Excluido', detail: 'Processo removido.' });
+      this.load();
     });
   }
 

@@ -1,5 +1,4 @@
 <p-toast />
-<p-confirmDialog />
 
 <section class="space-y-6 sm:space-y-8">
   <div class="space-y-1">
@@ -81,3 +80,10 @@
     <app-process-form [process]="editing()" (save)="save($event)" />
   }
 </p-dialog>
+
+<app-delete-confirm-dialog
+  [visible]="showDeleteConfirm()"
+  [processNumber]="deleting()?.processNumber ?? ''"
+  (confirm)="confirmDelete()"
+  (visibleChange)="onDeleteDialogVisibilityChange($event)"
+/>
