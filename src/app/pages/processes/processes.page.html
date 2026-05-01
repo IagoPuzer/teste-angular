@@ -1,31 +1,47 @@
 <p-toast />
 <p-confirmDialog />
 
-<p-card header="Gestao de Processos Juridicos">
-  <div class="mb-4 flex flex-wrap gap-3">
-    <input
-      pInputText
-      placeholder="Filtrar por cliente"
-      [(ngModel)]="filters.client"
-      (keyup.enter)="applyFilters()"
-      class="w-full md:w-72"
-    />
-    <p-select
-      [options]="statusOptions"
-      optionLabel="label"
-      optionValue="value"
-      [ngModel]="filters.status"
-      (ngModelChange)="setStatus($event)"
-      placeholder="Status"
-      class="w-full md:w-52"
-    />
-    <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" />
+<section class="space-y-4 sm:space-y-6">
+  <div class="space-y-1">
+    <h1 class="text-xl font-semibold text-slate-900 sm:text-2xl">Gestao de processos juridicos</h1>
+    <p class="text-sm text-slate-700">Filtre, ordene e gerencie os processos em um unico painel.</p>
   </div>
 
-  <div class="mb-3 flex gap-2">
-    <p-button size="small" severity="secondary" label="Ordenar por cliente" (onClick)="updateSort('client')" />
-    <p-button size="small" severity="secondary" label="Ordenar por data" (onClick)="updateSort('createdAt')" />
-  </div>
+  <p-card styleClass="!rounded-xl !border !border-slate-200 !bg-white">
+    <ng-template pTemplate="header">
+      <div class="px-4 pt-4 sm:px-6 sm:pt-6">
+        <p class="text-base font-semibold text-slate-900">Filtros e acoes</p>
+      </div>
+    </ng-template>
+
+    <div class="space-y-4 rounded-lg border border-slate-100 bg-slate-50/70 p-3 sm:p-4">
+      <div class="flex flex-wrap gap-3">
+        <input
+          pInputText
+          placeholder="Filtrar por cliente"
+          [(ngModel)]="filters.client"
+          (keyup.enter)="applyFilters()"
+          class="w-full rounded-lg !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400 md:w-80"
+        />
+        <p-select
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          [ngModel]="filters.status"
+          (ngModelChange)="setStatus($event)"
+          placeholder="Todos os status"
+          class="w-full md:w-56"
+          styleClass="!border-slate-300 !bg-white !text-slate-900"
+        />
+        <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" styleClass="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600" />
+      </div>
+
+      <div class="flex gap-2">
+        <p-button size="small" severity="secondary" [outlined]="true" label="Ordenar por cliente" icon="pi pi-sort-alpha-down" (onClick)="updateSort('client')" />
+        <p-button size="small" severity="secondary" [outlined]="true" label="Ordenar por data" icon="pi pi-calendar" (onClick)="updateSort('createdAt')" />
+      </div>
+    </div>
+  </p-card>
 
   <app-process-list
     [processes]="items()"
@@ -36,8 +52,27 @@
     (edit)="openEdit($event)"
     (remove)="remove($event)"
   />
-</p-card>
+</section>
 
-<p-dialog [modal]="true" [draggable]="false" [resizable]="false" [visible]="showForm()" (visibleChange)="showForm.set($event)" [header]="editing() ? 'Editar processo' : 'Novo processo'" [style]="{ width: '36rem' }">
-  <app-process-form [process]="editing()" (save)="save($event)" />
+<p-dialog
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [visible]="showForm()"
+  (visibleChange)="onFormVisibilityChange($event)"
+  [header]="editing() ? 'Editar processo' : 'Novo processo'"
+  [style]="{ width: '36rem' }"
+  styleClass="!rounded-xl !border !border-slate-200
+    [&_.p-dialog-header]:!bg-white
+    [&_.p-dialog-header]:!text-slate-900
+    [&_.p-dialog-header]:!border-b
+    [&_.p-dialog-header]:!border-slate-200
+    [&_.p-dialog-content]:!bg-white
+    [&_.p-dialog-content]:!text-slate-900
+    [&_.p-dialog-header-icon]:!text-slate-500
+    [&_.p-dialog-header-icon:hover]:!bg-slate-100
+    [&_.p-dialog-header-icon:hover]:!text-slate-700">
+  @if (showForm()) {
+    <app-process-form [process]="editing()" (save)="save($event)" />
+  }
 </p-dialog>

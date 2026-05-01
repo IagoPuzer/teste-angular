@@ -1,10 +1,56 @@
-<form [formGroup]="form" class="grid gap-3" (ngSubmit)="submit()">
-  <input pInputText formControlName="processNumber" placeholder="Numero do processo" />
-  <input pInputText formControlName="client" placeholder="Cliente" />
-  <textarea pTextarea formControlName="description" rows="3" placeholder="Descricao"></textarea>
-  <p-select formControlName="status" [options]="statusOptions" optionLabel="label" optionValue="value" placeholder="Status" />
-  <input pInputText type="date" formControlName="createdAt" />
-  <div class="flex justify-end">
-    <p-button type="submit" label="Salvar" />
+<form [formGroup]="form" class="grid gap-4 pt-1" (ngSubmit)="submit()">
+  <div class="grid gap-1">
+    <label class="text-sm font-medium text-slate-700">Numero do processo</label>
+    <input
+      pInputText
+      formControlName="processNumber"
+      placeholder="Numero do processo"
+      class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400" />
+  </div>
+
+  <div class="grid gap-1">
+    <label class="text-sm font-medium text-slate-700">Cliente</label>
+    <input pInputText formControlName="client" placeholder="Cliente" class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400" />
+  </div>
+
+  <div class="grid gap-1">
+    <label class="text-sm font-medium text-slate-700">Descricao</label>
+    <textarea
+      pTextarea
+      formControlName="description"
+      rows="3"
+      placeholder="Descricao"
+      class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400"></textarea>
+  </div>
+
+  <div class="grid gap-1">
+    <label class="text-sm font-medium text-slate-700">Status</label>
+    <p-select
+      formControlName="status"
+      [options]="statusOptions"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Status"
+      class="w-full"
+      styleClass="!border-slate-300 !bg-white
+        [&_.p-select-label]:!text-slate-900
+        [&_.p-select-label]:!opacity-100
+        [&_.p-placeholder]:!text-slate-400
+        [&_.p-select-dropdown-icon]:!text-slate-500"
+      panelStyleClass="!bg-white !border !border-slate-300
+        [&_.p-select-list-container]:!bg-white
+        [&_.p-select-option]:!text-slate-700
+        [&_.p-select-option:hover]:!bg-slate-100
+        [&_.p-select-option.p-select-option-selected]:!bg-emerald-100
+        [&_.p-select-option.p-select-option-selected]:!text-emerald-800" />
+  </div>
+
+  <div class="grid gap-1">
+    <label class="text-sm font-medium text-slate-700">Data</label>
+    <input pInputText type="date" formControlName="createdAt" class="w-full !border-slate-300 !bg-white !text-slate-900" />
+  </div>
+
+  <div class="flex justify-end border-t border-slate-200 pt-3">
+    <p-button type="submit" label="Salvar" icon="pi pi-check" styleClass="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600" />
   </div>
 </form>

@@ -32,7 +32,16 @@ export class ProcessFormComponent implements OnChanges {
   });
 
   ngOnChanges(): void {
-    if (!this.process) return;
+    if (!this.process) {
+      this.form.reset({
+        processNumber: '',
+        client: '',
+        description: '',
+        status: 'ATIVO',
+        createdAt: ''
+      });
+      return;
+    }
     this.form.patchValue(this.process);
   }
 

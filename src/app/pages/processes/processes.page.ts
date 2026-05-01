@@ -107,6 +107,13 @@ export class ProcessesPage implements OnInit {
     });
   }
 
+  onFormVisibilityChange(visible: boolean): void {
+    this.showForm.set(visible);
+    if (!visible) {
+      this.editing.set(undefined);
+    }
+  }
+
   remove(process: LegalProcess): void {
     this.confirmationService.confirm({
       message: `Deseja excluir o processo ${process.processNumber}?`,
