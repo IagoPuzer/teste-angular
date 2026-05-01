@@ -49,7 +49,7 @@ export class AuthService {
       localStorage.setItem('mock_auth', 'true');
       return of(void 0);
     }
-    return from(this.keycloak.login()).pipe(
+    return from(this.keycloak.login({ redirectUri: `${window.location.origin}/dashboard` })).pipe(
       map(() => {
         this.authenticated.set(true);
       })

@@ -16,6 +16,12 @@ export class LoginPage {
   private readonly router = inject(Router);
   readonly loading = signal(false);
 
+  constructor() {
+    if (this.authService.isAuthenticated()) {
+      void this.router.navigate(['/dashboard']);
+    }
+  }
+
   login(): void {
     this.loading.set(true);
     this.authService
