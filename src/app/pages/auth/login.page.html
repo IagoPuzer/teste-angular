@@ -1,12 +1,32 @@
-<div class="flex min-h-[80vh] items-center justify-center px-4">
-  <p-card header="Acesso ao sistema" subheader="Autenticacao Keycloak">
-    <p class="mb-4 text-sm text-slate-600">Entre para acessar dashboard e gestao de processos.</p>
-    @if (loading()) {
-      <div class="flex justify-center">
-        <p-progressSpinner strokeWidth="4" />
-      </div>
-    } @else {
-      <p-button label="Entrar" icon="pi pi-sign-in" (onClick)="login()" />
-    }
-  </p-card>
+<div class="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-4 py-10">
+  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.2),_transparent_40%)]"></div>
+
+  <div class="relative w-full max-w-md rounded-3xl border border-white/10 bg-slate-900/85 p-6 shadow-2xl backdrop-blur sm:p-8">
+    <div class="mb-8 text-center">
+      <span class="inline-flex items-center gap-2 rounded-full border border-emerald-300/30 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
+        <i class="pi pi-shield"></i>
+        Acesso seguro
+      </span>
+      <h1 class="mt-4 text-2xl font-semibold text-white sm:text-3xl">Bem-vindo</h1>
+      <p class="mt-2 text-sm text-slate-300 sm:text-base">
+        Entre para acessar dashboard e gestao de processos.
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-white/10 bg-slate-800/60 p-4 sm:p-5">
+      <p class="mb-4 text-xs uppercase tracking-wider text-slate-400">Autenticacao</p>
+
+      @if (loading()) {
+        <div class="flex justify-center py-3">
+          <p-progressSpinner strokeWidth="4" />
+        </div>
+      } @else {
+        <p-button
+          label="Entrar no sistema"
+          icon="pi pi-sign-in"
+          styleClass="w-full justify-center"
+          (onClick)="login()" />
+      }
+    </div>
+  </div>
 </div>

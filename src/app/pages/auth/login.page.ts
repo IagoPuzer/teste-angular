@@ -1,7 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { finalize } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [ButtonModule, CardModule, ProgressSpinnerModule],
+  imports: [ButtonModule, ProgressSpinnerModule],
   templateUrl: './login.page.html'
 })
 export class LoginPage {
