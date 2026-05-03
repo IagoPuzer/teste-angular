@@ -1,10 +1,10 @@
 export const environment = {
-  production: false,
-  apiDelayMs: 350,
+  production: true,
+  apiDelayMs: 0,
   keycloak: {
-    enabled: false,
-    url: 'http://localhost:8080',
+    enabled: true,
+    url: 'https://teste-angular-mauve.vercel.app',
     realm: 'juridico',
-    clientId: 'angular-spa'
-  }
+    clientId: 'angular-spa',
+  },
 };
