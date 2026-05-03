@@ -6,11 +6,17 @@
       formControlName="processNumber"
       placeholder="Numero do processo"
       class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400" />
+    @if (form.controls.processNumber.touched && form.controls.processNumber.hasError('required')) {
+      <small class="text-sm text-rose-600">Numero do processo e obrigatorio.</small>
+    }
   </div>
 
   <div class="grid gap-1">
     <label class="text-sm font-medium text-slate-700">Cliente</label>
     <input pInputText formControlName="client" placeholder="Cliente" class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400" />
+    @if (form.controls.client.touched && form.controls.client.hasError('required')) {
+      <small class="text-sm text-rose-600">Cliente e obrigatorio.</small>
+    }
   </div>
 
   <div class="grid gap-1">
@@ -21,6 +27,12 @@
       rows="3"
       placeholder="Descricao"
       class="w-full !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400"></textarea>
+    @if (form.controls.description.touched && form.controls.description.hasError('required')) {
+      <small class="text-sm text-rose-600">Descricao e obrigatoria.</small>
+    }
+    @if (form.controls.description.touched && form.controls.description.hasError('minlength')) {
+      <small class="text-sm text-rose-600">Descricao deve ter no minimo 6 caracteres.</small>
+    }
   </div>
 
   <div class="grid gap-1">
@@ -43,11 +55,17 @@
         [&_.p-select-option:hover]:!bg-slate-100
         [&_.p-select-option.p-select-option-selected]:!bg-emerald-100
         [&_.p-select-option.p-select-option-selected]:!text-emerald-800" />
+    @if (form.controls.status.touched && form.controls.status.hasError('required')) {
+      <small class="text-sm text-rose-600">Status e obrigatorio.</small>
+    }
   </div>
 
   <div class="grid gap-1">
     <label class="text-sm font-medium text-slate-700">Data</label>
     <input pInputText type="date" formControlName="createdAt" class="w-full !border-slate-300 !bg-white !text-slate-900" />
+    @if (form.controls.createdAt.touched && form.controls.createdAt.hasError('required')) {
+      <small class="text-sm text-rose-600">Data e obrigatoria.</small>
+    }
   </div>
 
   <div class="flex justify-end border-t border-slate-200 pt-3">
