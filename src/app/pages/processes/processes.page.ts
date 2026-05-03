@@ -7,7 +7,11 @@ import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { LegalProcess, ProcessFilters, ProcessStatus } from '../../models/process.model';
+import {
+  LegalProcess,
+  ProcessFilters,
+  ProcessStatus,
+} from '../../models/process.model';
 import { ProcessService } from '../../services/process.service';
 import { ProcessFormComponent } from './components/process-form/process-form.component';
 import { ProcessListComponent } from './components/process-list/process-list.component';
@@ -26,10 +30,10 @@ import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog
     ButtonModule,
     ProcessFormComponent,
     ProcessListComponent,
-    DeleteConfirmDialogComponent
+    DeleteConfirmDialogComponent,
   ],
   providers: [MessageService],
-  templateUrl: './processes.page.html'
+  templateUrl: './processes.page.html',
 })
 export class ProcessesPage implements OnInit {
   private readonly processService = inject(ProcessService);
@@ -39,7 +43,7 @@ export class ProcessesPage implements OnInit {
     { label: 'Todos', value: '' },
     { label: 'Ativo', value: 'ATIVO' },
     { label: 'Finalizado', value: 'FINALIZADO' },
-    { label: 'Suspenso', value: 'SUSPENSO' }
+    { label: 'Suspenso', value: 'SUSPENSO' },
   ];
 
   readonly items = signal<LegalProcess[]>([]);
@@ -55,10 +59,8 @@ export class ProcessesPage implements OnInit {
   readonly filters: ProcessFilters = {
     client: '',
     status: '',
-    sortBy: 'createdAt',
-    sortDirection: 'desc',
     page: 1,
-    pageSize: 5
+    pageSize: 5,
   };
 
   ngOnInit(): void {
@@ -103,7 +105,11 @@ export class ProcessesPage implements OnInit {
 
     action.subscribe(() => {
       this.showForm.set(false);
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Processo salvo com sucesso.' });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Sucesso',
+        detail: 'Processo salvo com sucesso.',
+      });
       this.load();
     });
   }
@@ -135,16 +141,13 @@ export class ProcessesPage implements OnInit {
     this.processService.remove(process.id).subscribe(() => {
       this.showDeleteConfirm.set(false);
       this.deleting.set(undefined);
-      this.messageService.add({ severity: 'success', summary: 'Excluido', detail: 'Processo removido.' });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Excluido',
+        detail: 'Processo removido.',
+      });
       this.load();
     });
-  }
-
-  updateSort(sortBy: keyof LegalProcess): void {
-    const nextDirection = this.filters.sortBy === sortBy && this.filters.sortDirection === 'asc' ? 'desc' : 'asc';
-    this.filters.sortBy = sortBy;
-    this.filters.sortDirection = nextDirection;
-    this.load();
   }
 
   setStatus(value: string): void {

@@ -12,8 +12,6 @@ export interface LegalProcess {
 export interface ProcessFilters {
   client?: string;
   status?: ProcessStatus | '';
-  sortBy?: keyof LegalProcess;
-  sortDirection?: 'asc' | 'desc';
   page?: number;
   pageSize?: number;
 }
