@@ -4,34 +4,62 @@
   [resizable]="false"
   [visible]="visible"
   (visibleChange)="visibleChange.emit($event)"
-  header="Confirmar exclusao"
-  [style]="{ width: '30rem' }"
-  styleClass="!rounded-xl !border !border-slate-200
+  header="Excluir processo"
+  [style]="{ width: '28rem' }"
+  styleClass="!rounded-xl !shadow-lg !border-0 overflow-hidden
     [&_.p-dialog-header]:!bg-white
     [&_.p-dialog-header]:!text-slate-900
     [&_.p-dialog-header]:!border-b
     [&_.p-dialog-header]:!border-slate-200
+    [&_.p-dialog-header]:!px-6
+    [&_.p-dialog-header]:!py-4
     [&_.p-dialog-content]:!bg-white
     [&_.p-dialog-content]:!text-slate-700
+    [&_.p-dialog-content]:!px-6
+    [&_.p-dialog-content]:!py-5
     [&_.p-dialog-footer]:!bg-white
     [&_.p-dialog-footer]:!border-t
     [&_.p-dialog-footer]:!border-slate-200
-    [&_.p-dialog-header-icon]:!text-slate-500
+    [&_.p-dialog-footer]:!px-6
+    [&_.p-dialog-footer]:!py-4
+    [&_.p-dialog-header-icon]:!text-slate-400
     [&_.p-dialog-header-icon:hover]:!bg-slate-100
-    [&_.p-dialog-header-icon:hover]:!text-slate-700">
-  <div class="flex items-start gap-3">
-    <i class="pi pi-exclamation-triangle mt-1 text-amber-500"></i>
-    <p class="text-sm text-slate-700">
-      Deseja excluir o processo
-      <span class="font-semibold text-slate-900">{{ processNumber }}</span
-      >?
-    </p>
+    [&_.p-dialog-header-icon:hover]:!text-slate-700"
+>
+  <div class="flex gap-4">
+    <div class="flex h-10 w-10 items-center justify-center rounded-full bg-rose-50">
+      <i class="pi pi-exclamation-triangle text-rose-500 text-lg"></i>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <p class="text-sm text-slate-800">
+        Tem certeza que deseja excluir o processo
+        <span class="font-semibold text-slate-900">
+          {{ processNumber }}
+        </span>?
+      </p>
+
+      <p class="text-xs text-slate-500">
+        Essa ação não pode ser desfeita.
+      </p>
+    </div>
   </div>
 
   <ng-template pTemplate="footer">
-    <div class="flex justify-end gap-2">
-      <p-button label="Cancelar" [text]="true" styleClass="!text-slate-600 hover:!bg-slate-100" (onClick)="close()" />
-      <p-button label="Excluir" styleClass="!bg-rose-500 !border-rose-500 hover:!bg-rose-600 hover:!border-rose-600" (onClick)="onConfirm()" />
+    <div class="flex justify-end gap-3">
+      <p-button
+        label="Cancelar"
+        [text]="true"
+        styleClass="!text-slate-600 hover:!bg-slate-100"
+        (onClick)="close()"
+      />
+
+      <p-button
+        label="Excluir"
+        icon="pi pi-trash"
+        styleClass="!bg-rose-500 !border-rose-500 hover:!bg-rose-600 hover:!border-rose-600"
+        (onClick)="onConfirm()"
+      />
     </div>
   </ng-template>
 </p-dialog>
