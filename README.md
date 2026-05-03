@@ -51,6 +51,15 @@ No diretorio `frontend`:
 docker compose -f docker-compose.keycloak.yml up -d
 ```
 
+### Credenciais de teste
+
+Ja existe uma conta de teste criada no Keycloak para facilitar o acesso inicial:
+
+- **Usuario:** teste
+- **Senha:** teste123
+
+Caso prefira, voce pode criar uma nova conta diretamente pelo Keycloak.
+
 ## Estrutura principal
 
 ```text
