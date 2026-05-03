@@ -15,6 +15,7 @@ export class AuthenticatedLayoutComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   readonly loadingService = inject(LoadingService);
+  mobileOpen = false;
 
   logout(): void {
     this.authService.logout().finally(() => this.router.navigate(['/login']));

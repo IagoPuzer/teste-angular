@@ -2,16 +2,94 @@
   @if (loadingService.activeRequests() > 0) {
     <p-progressBar mode="indeterminate" [style]="{ height: '4px' }" />
   }
-  <header class="border-b border-slate-200 bg-white">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
-      <h1 class="text-lg font-semibold text-slate-900">Gestao de Processos Juridicos</h1>
-      <div class="flex items-center gap-2">
-        <a routerLink="/dashboard" routerLinkActive="font-semibold" class="text-sm text-slate-700">Dashboard</a>
-        <a routerLink="/processes" routerLinkActive="font-semibold" class="text-sm text-slate-700">Processos</a>
-        <p-button label="Sair" size="small" severity="secondary" (onClick)="logout()" />
-      </div>
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+  <div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+    <a routerLink="/dashboard" (click)="mobileOpen = false" class="flex items-center gap-2.5 shrink-0">
+      <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white shadow-sm">
+        <i class="pi pi-briefcase text-base"></i>
+      </span>
+      <span class="flex flex-col leading-tight">
+        <span class="text-sm font-semibold text-slate-900 sm:text-base">Gestão Jurídica</span>
+        <span class="hidden text-[11px] text-slate-500 sm:block">Processos & Casos</span>
+      </span>
+    </a>
+
+    <!-- Desktop -->
+    <nav class="hidden md:flex items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 p-1">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="bg-white text-slate-900 shadow-sm ring-1 ring-slate-200"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="mobileOpen = false"
+        class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+      >
+        <i class="pi pi-th-large text-xs"></i> Dashboard
+      </a>
+      <a
+        routerLink="/processes"
+        routerLinkActive="bg-white text-slate-900 shadow-sm ring-1 ring-slate-200"
+        (click)="mobileOpen = false"
+        class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+      >
+        <i class="pi pi-folder-open text-xs"></i> Processos
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+
+      <p-button
+        label="Sair"
+        icon="pi pi-sign-out"
+        size="small"
+        severity="secondary"
+        [outlined]="true"
+        styleClass="whitespace-nowrap hidden sm:inline-flex !border-red-200 !text-red-500"
+        (onClick)="logout()"
+      />
+
+      <!-- Mobile  -->
+      <button
+        type="button"
+        class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md text-slate-700 hover:bg-slate-100"
+        (click)="mobileOpen = !mobileOpen"
+        [attr.aria-expanded]="mobileOpen"
+        aria-label="Abrir menu"
+      >
+        <i class="pi" [class.pi-bars]="!mobileOpen" [class.pi-times]="mobileOpen"></i>
+      </button>
     </div>
-  </header>
+  </div>
+
+  <div
+    class="md:hidden overflow-hidden border-t border-slate-200 bg-white transition-[max-height,opacity] duration-300 ease-out"
+    [class.max-h-0]="!mobileOpen"
+    [class.opacity-0]="!mobileOpen"
+    [class.max-h-96]="mobileOpen"
+    [class.opacity-100]="mobileOpen"
+  >
+    <nav class="flex flex-col gap-1 px-4 py-3">
+      <a
+        routerLink="/dashboard"
+        routerLinkActive="bg-slate-100 text-slate-900"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="mobileOpen = false"
+        class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+      >
+        <i class="pi pi-th-large"></i> Dashboard
+      </a>
+      <a
+        routerLink="/processes"
+        routerLinkActive="bg-slate-100 text-slate-900"
+        (click)="mobileOpen = false"
+        class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-50"
+      >
+        <i class="pi pi-folder-open"></i> Processos
+      </a>
+      <div class="my-2 h-px bg-slate-200"></div>
+
+    </nav>
+  </div>
+</header>
   <main class="mx-auto max-w-7xl p-4">
     <router-outlet />
   </main>
