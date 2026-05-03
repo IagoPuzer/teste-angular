@@ -41,26 +41,6 @@ pnpm build
 pnpm test
 ```
 
-## Configuracao do Keycloak
-
-Edite os arquivos:
-
-- `src/environments/environment.ts`
-- `src/environments/environment.prod.ts`
-
-Campos esperados:
-
-```ts
-keycloak: {
-  enabled: true,
-  url: 'http://localhost:8080',
-  realm: 'juridico',
-  clientId: 'angular-spa'
-}
-```
-
-Se `enabled` estiver `false`, o projeto usa modo mock local para login.
-
 ## Rodar Keycloak local (Docker)
 
 Para a autenticacao via Keycloak funcionar corretamente, o Docker precisa estar em execucao e os containers do Keycloak precisam estar ativos.
