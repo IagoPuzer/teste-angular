@@ -15,13 +15,21 @@
 
     <div class="rounded-lg border border-slate-100 bg-slate-50/70 p-3 sm:p-4">
       <div class="flex flex-wrap items-center gap-3 sm:gap-4">
-        <input
-          pInputText
-          placeholder="Filtrar por cliente"
-          [(ngModel)]="filters.client"
-          (keyup.enter)="applyFilters()"
-          class="w-full rounded-lg !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400 md:w-80"
-        />
+    <div class="flex gap-2 w-full md:w-80">
+      <input
+        pInputText
+        placeholder="Filtrar por cliente"
+        [(ngModel)]="filters.client"
+        (keyup.enter)="applyFilters()"
+        class="w-full rounded-lg !border-slate-300 !bg-white !text-slate-900 placeholder:!text-slate-400 "
+      />
+        <p-button
+          pButton
+          icon="pi pi-search"
+          (click)="applyFilters()"
+          class="h-10"
+        ></p-button>
+    </div>
         <p-select
           [options]="statusOptions"
           optionLabel="label"
@@ -42,7 +50,7 @@
             [&_.p-select-option.p-select-option-selected]:!bg-emerald-100
             [&_.p-select-option.p-select-option-selected]:!text-emerald-800"
         />
-        <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" styleClass="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600" />
+        <p-button label="Novo processo" icon="pi pi-plus" (onClick)="openCreate()" />
       </div>
     </div>
   </p-card>
